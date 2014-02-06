@@ -62,19 +62,19 @@ function template (template) {
 var myTemplate = template(function () {
 
   return div(
-    h1(dan),
-    p(description),
+    h1(Title),
+    p(Description),
     br(),
 
     ul(
-      collection.map(function (item) {
+      Collection.map(function (item) {
         return li(item);
       })
     )
   );
 
 })({
-  dan: 'this is my title',
-  description: 'hello how are you doing',
-  collection: ['one', 'two', 'three']
+  Title: 'this is my title',
+  Description: 'hello how are you doing',
+  Collection: ['one', 'two', 'three']
 });
