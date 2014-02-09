@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shard.js</title>
+  <style>
+    .line {overflow: hidden;}
+    .unit {float: left;}
+    .size1of2 {width:50%;}
+    .lastUnit {float:none; width: auto;}
+    textarea {width: 90%; height: 400px; font-size: 16px;}
+  </style>
+</head>
+<body class="line">
+  <div class="unit size1of2">
+    <textarea id="textarea">
+var mytemplate = Shard.compile(function (tags, data) {
+  return tags.div(
+    tags.h1(data.title),
+    tags.p(data.description),
+
+    tags.ul(data.items.map(function (item) {
+      return tags.li(item);
+    }))
+  );
+});
+
+var content = mytemplate({
+  title: 'Shard.js',
+  description: 'Makes it easy to generate HTML in your JavaScript projects.',
+  items: [
+    'just pure js',
+    'build DOM fragments',
+    'lightweight'
+  ]
+});
+
+document.getElementById('template').appendChild(content.render());
+    </textarea>
+    <button onclick="compile()">Compile</button>
+  </div>
+  <div class="unit size1of2 lastUnit">
+    <h2>HTML</h2>
+    <div id="template"></div>
+  </div>
+  <script src="../dist/shard.js"></script>
+  <script>
+    function compile () {
+      var content = document.getElementById('textarea').innerHTML;
+      eval(content);
+    }
+  </script>
+</body>
+</html>
