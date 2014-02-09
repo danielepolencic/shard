@@ -30,7 +30,7 @@ module.exports = function createNodeElement (tagName /*, args */) {
         }
 
         if (util.isObject(arg)) {
-          Object.keys(arg).forEach(function (name) {
+          return Object.keys(arg).forEach(function (name) {
             element.setAttribute(name, arg[name]);
           }, this);
         }
