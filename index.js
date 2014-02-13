@@ -25,7 +25,13 @@ var createNodeElement = require('./src/node'),
 var compile = function (func) {
   return function () {
     return func.apply(null, [tags].concat(util.toArray(arguments)));
+  };
+};
+
+var registerNodeElement = function (tagName, func) {
+  tags[tagName] = function () {
+    return func.apply(null, [tags].concat(util.toArray(arguments)));
   }
 };
 
-module.exports = window.Shard = {compile: compile};
+module.exports = window.Shard = {compile: compile, registerElement: registerNodeElement, tags: tags};

@@ -107,6 +107,39 @@ generates:
 <div><input type="password"></div>
 ```
 
+### Custom DOM elements
+You can register new tags with:
+
+```javascript
+Shard.registerElement('logo', function (tags, companyName) {
+  return tags.header(
+    tags.h1(companyName || 'Hello World LTD');
+  );
+})
+```
+
+and use them as you would use any other HTML tag:
+
+```javascript
+var template = Shard.compile(function (tags) {
+  return tags.div(
+    tags.logo('My Company LTD');
+  );
+});
+
+template().render();
+```
+
+generates:
+
+```html
+<div>
+  <header>
+    <h1>My Company LTD</h1>
+  </header>
+</div>
+```
+
 ### Helpers
 Shard use javascript to create a template. Therefore you can use the power of
 javascript to create helpers:

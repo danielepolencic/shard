@@ -26,10 +26,16 @@ var createNodeElement = require('./src/node'),
 var compile = function (func) {
   return function () {
     return func.apply(null, [tags].concat(util.toArray(arguments)));
+  };
+};
+
+var registerNodeElement = function (tagName, func) {
+  tags[tagName] = function () {
+    return func.apply(null, [tags].concat(util.toArray(arguments)));
   }
 };
 
-module.exports = window.Shard = {compile: compile};
+module.exports = window.Shard = {compile: compile, registerElement: registerNodeElement, tags: tags};
 
 },{"./src/node":3,"./src/util":4}],2:[function(require,module,exports){
 function DOMElement (tagName) {
@@ -93,7 +99,7 @@ module.exports = function createNodeElement (tagName /*, args */) {
         }
 
         if (util.isObject(arg)) {
-          Object.keys(arg).forEach(function (name) {
+          return Object.keys(arg).forEach(function (name) {
             element.setAttribute(name, arg[name]);
           }, this);
         }
